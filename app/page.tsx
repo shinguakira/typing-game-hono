@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { questions } from '@/constants/page';
 
 type Score = {
   userName: string;
@@ -7,13 +8,6 @@ type Score = {
 };
 
 export default function Home() {
-  const questions = [
-    { question: 'React', image: './monster1.jpg' },
-    { question: 'Typescript', image: './monster2.jpg' },
-    { question: 'Next.js', image: './monster3.jpg' },
-    { question: 'Hono', image: './monster4.jpg' },
-    { question: 'Tailwind', image: './monster5.jpg' },
-  ];
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [currentPosition, setCurrentPosition] = useState<number>(0);
   const [isCompleted, setIsCompleted] = useState<boolean>(false); // if true, game is completed
