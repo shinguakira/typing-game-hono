@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { questions } from '@/constants/page';
+import { questions as allQuestions } from '@/constants/page';
 
 type Score = {
   userName: string;
@@ -8,6 +8,11 @@ type Score = {
 };
 
 export default function Home() {
+  const [questions, setQuestions] = useState(() => {
+    // Randomly select 5 questions from all questions
+    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 5);
+  });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [currentPosition, setCurrentPosition] = useState<number>(0);
   const [isCompleted, setIsCompleted] = useState<boolean>(false); // if true, game is completed
@@ -111,6 +116,9 @@ export default function Home() {
    * @returns void
    */
   const handlePlayAgain = () => {
+    // Reshuffle questions for new game
+    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+    setQuestions(shuffled.slice(0, 5));
     setIsStarted(false);
     setIsCompleted(false);
     setCurrentQuestionIndex(0);
@@ -119,7 +127,6 @@ export default function Home() {
     setTotalTime(0);
     setScore(0);
   }
-  
   /**
    * Handle Start Game
    * force user to input name otherwise show alert
