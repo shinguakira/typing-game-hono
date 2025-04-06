@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { headers } from 'next/headers';
 import './globals.css';
+import { Locale, dictionaries } from './i18n/dictionaries';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -12,32 +14,62 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Typing Game | Test Your Programming Knowledge',
-  description: 'A fun typing game to test your speed with programming-related terms. Challenge yourself and compete on the global leaderboard!',
-  keywords: 'typing game, programming, coding, speed typing, tech terms, React, Next.js, Hono',
-  authors: [{ name: 'Akira Shingu' }],
-  openGraph: {
-    title: 'Typing Game | Test Your Programming Knowledge',
-    description: 'A fun typing game to test your speed with programming-related terms. Challenge yourself and compete on the global leaderboard!',
-    images: ['/monster1.jpg'],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Typing Game | Test Your Programming Knowledge',
-    description: 'A fun typing game to test your speed with programming-related terms. Challenge yourself and compete on the global leaderboard!',
-    images: ['/monster1.jpg'],
-  },
-};
+// Get the locale from the Accept-Language header or default to 'en'
+function getLocale(): Locale {
+  const headersList = headers();
+  const acceptLanguage = headersList.get('accept-language') || '';
+  
+  const parsedLocales = acceptLanguage.split(',').map(l => l.split(';')[0].trim());
+  for (const locale of parsedLocales) {
+    const shortLocale = locale.substring(0, 2) as Locale;
+    if (Object.keys(dictionaries).includes(shortLocale)) {
+      return shortLocale;
+    }
+  }
+  
+  return 'en';
+}
+
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const dict = dictionaries[locale];
+
+  return {
+    title: dict.title,
+    description: dict.description,
+    keywords: dict.keywords,
+    authors: [{ name: 'Akira Shingu' }],
+    openGraph: {
+      title: dict.title,
+      description: dict.description,
+      images: ['/monster1.jpg'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: dict.title,
+      description: dict.description,
+      images: ['/monster1.jpg'],
+    },
+    alternates: {
+      languages: Object.fromEntries(
+        Object.keys(dictionaries).map(lang => [lang, `/${lang}`])
+      ),
+    },
+  };
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = getLocale();
+  
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+    <html lang={locale}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }
