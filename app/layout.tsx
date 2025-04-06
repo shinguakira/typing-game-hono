@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 // Get the locale from the Accept-Language header or default to 'en'
-function getLocale(): Locale {
-  const headersList = headers();
+async function getLocale(): Promise<Locale> {
+  const headersList = await headers();
   const acceptLanguage = headersList.get('accept-language') || '';
   
-  const parsedLocales = acceptLanguage.split(',').map(l => l.split(';')[0].trim());
+  const parsedLocales = acceptLanguage.split(',').map((l: string) => l.split(';')[0].trim());
   for (const locale of parsedLocales) {
     const shortLocale = locale.substring(0, 2) as Locale;
     if (Object.keys(dictionaries).includes(shortLocale)) {
@@ -30,8 +30,8 @@ function getLocale(): Locale {
   return 'en';
 }
 
-export function generateMetadata(): Metadata {
-  const locale = getLocale();
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const dict = dictionaries[locale];
 
   return {
@@ -58,12 +58,12 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = getLocale();
+  const locale = await getLocale();
   
   return (
     <html lang={locale}>
