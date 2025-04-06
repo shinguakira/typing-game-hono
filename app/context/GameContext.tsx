@@ -1,15 +1,19 @@
 'use client';
 import React, { createContext, useState, useContext, useRef, useEffect, ReactNode } from 'react';
-import { questions as allQuestions } from '../../constants/page';
+import { techQuestions, tailwindQuestions } from '../../constants/page';
 
 type Score = {
   userName: string;
   score: number;
 };
 
+export type GameMode = 'tech' | 'tailwind';
+
 interface GameContextProps {
   userName: string;
   setUserName: (name: string) => void;
+  gameMode: GameMode;
+  setGameMode: (mode: GameMode) => void;
   questions: { question: string; image: string }[];
   currentQuestionIndex: number;
   setCurrentQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -38,8 +42,10 @@ const GameContext = createContext<GameContextProps | null>(null);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [userName, setUserName] = useState<string>('');
+  const [gameMode, setGameMode] = useState<GameMode>('tech');
   const [questions, setQuestions] = useState(() => {
-    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+    const questionSet = gameMode === 'tech' ? techQuestions : tailwindQuestions;
+    const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 5);
   });
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -98,7 +104,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const resetGame = () => {
-    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+    const questionSet = gameMode === 'tech' ? techQuestions : tailwindQuestions;
+    const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
     setQuestions(shuffled.slice(0, 5));
     setIsStarted(false);
     setIsCompleted(false);
@@ -114,6 +121,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       value={{
         userName,
         setUserName,
+        gameMode,
+        setGameMode,
         questions,
         currentQuestionIndex,
         setCurrentQuestionIndex,
