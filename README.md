@@ -1,17 +1,18 @@
 # Typing Game with Hono
 
-A fun typing game built with Next.js, Hono, and Upstash Redis for the leaderboard system. Test your typing speed with programming-related words!
+A fun typing game built with Next.js, Hono, and Upstash Redis for the leaderboard system. Test your typing speed with programming-related words, Tailwind CSS classnames, Material UI components, or Shadcn UI components!
 
 ![Game Screenshot](./public/monster1.jpg)
 
 ## Features
 
-- 🎮 Random selection of 5 questions from a pool of 50 programming terms
+- 🎮 Multiple game modes: Tech Terms, Tailwind CSS, Material UI, and Shadcn UI components
+- 🌐 Internationalization (i18n) support for better SEO
 - 🎵 Background music and sound effects for immersion
 - 📊 Global leaderboard using Upstash Redis
 - 🎯 Score calculation based on typing speed
 - 🔄 Play again feature with new random questions
-- 🎨 Monster-themed visuals for each question
+- 🎨 Themed visuals for each question category
 
 ## Tech Stack
 
@@ -72,14 +73,25 @@ typing-game-hono/
 ├── app/
 │   ├── api/
 │   │   └── [[...route]]/     # Hono API routes
-│   └── page.tsx              # Main game component
+│   ├── components/
+│   │   ├── StartPage.tsx     # Start page component
+│   │   ├── TypingPage.tsx    # Typing game component
+│   │   └── ResultPage.tsx    # Results and leaderboard component
+│   ├── context/
+│   │   └── GameContext.tsx   # Shared state management
+│   ├── i18n/
+│   │   └── dictionaries.ts   # Internationalization support
+│   └── page.tsx              # Main component with conditional rendering
 ├── constants/
-│   └── page.tsx             # Question pool (50 terms)
+│   └── page.tsx              # Question pools (tech, tailwind, material, shadcn)
+├── middleware.ts             # i18n middleware
 ├── public/
-│   ├── monster1-5.jpg       # Monster images
-│   ├── bgm.mp3              # Background music
-│   └── shot.mp3             # Sound effect
-└── .env                     # Environment variables
+│   ├── monster1-5.jpg        # Monster images for tech questions
+│   ├── mui-real/             # Material UI component images
+│   ├── shadcn-real/          # Shadcn UI component images
+│   ├── bgm.mp3               # Background music
+│   └── shot.mp3              # Sound effect
+└── .env                      # Environment variables
 ```
 
 ## Deployment
