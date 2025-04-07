@@ -67,6 +67,16 @@ export const StartPage = () => {
         >
           Tailwind CSS
         </button>
+        <button 
+          className={`px-6 py-3 text-lg rounded-lg transition-colors ${
+            gameMode === 'material' 
+              ? 'bg-red-700 text-white' 
+              : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+          }`}
+          onClick={() => handleModeChange('material')}
+        >
+          Material UI
+        </button>
       </div>
       
       <div>

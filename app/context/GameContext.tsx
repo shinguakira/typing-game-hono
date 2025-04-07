@@ -1,13 +1,13 @@
 'use client';
 import React, { createContext, useState, useContext, useRef, useEffect, ReactNode } from 'react';
-import { techQuestions, tailwindQuestions } from '../../constants/page';
+import { techQuestions, tailwindQuestions, materialQuestions } from '../../constants/page';
 
 type Score = {
   userName: string;
   score: number;
 };
 
-export type GameMode = 'tech' | 'tailwind';
+export type GameMode = 'tech' | 'tailwind' | 'material';
 
 interface GameContextProps {
   userName: string;
@@ -76,7 +76,20 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   }, [isStarted, isCompleted]);
   
   useEffect(() => {
-    const questionSet = gameMode === 'tech' ? techQuestions : tailwindQuestions;
+    let questionSet;
+    switch (gameMode) {
+      case 'tech':
+        questionSet = techQuestions;
+        break;
+      case 'tailwind':
+        questionSet = tailwindQuestions;
+        break;
+      case 'material':
+        questionSet = materialQuestions;
+        break;
+      default:
+        questionSet = techQuestions;
+    }
     const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
     setQuestions(shuffled.slice(0, 5));
   }, [gameMode]);
@@ -110,7 +123,20 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const resetGame = () => {
-    const questionSet = gameMode === 'tech' ? techQuestions : tailwindQuestions;
+    let questionSet;
+    switch (gameMode) {
+      case 'tech':
+        questionSet = techQuestions;
+        break;
+      case 'tailwind':
+        questionSet = tailwindQuestions;
+        break;
+      case 'material':
+        questionSet = materialQuestions;
+        break;
+      default:
+        questionSet = techQuestions;
+    }
     const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
     setQuestions(shuffled.slice(0, 5));
     setIsStarted(false);
