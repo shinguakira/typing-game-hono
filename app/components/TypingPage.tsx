@@ -19,54 +19,55 @@ export const TypingPage = () => {
     addResult,
     fetchScores,
     resetGame,
+    isSoundEnabled,
   } = useGameContext();
 
   useEffect(() => {
     const handleKeyDown = async (e: KeyboardEvent) => {
       const currentQuestion = questions[currentQuestionIndex];
-      if (e.key.toLowerCase() === currentQuestion.question[currentPosition].toLowerCase()) {
+      const expectedChar = currentQuestion.question[currentPosition].toLowerCase();
+      const inputChar = e.key.toLowerCase();
+
+      if (inputChar === expectedChar) {
         setCurrentPosition(prev => prev + 1);
-      }
-      if (currentPosition === currentQuestion.question.length - 1) {
-        if (currentQuestionIndex === questions.length - 1) {
-          if (shotSoundRef.current) {
+
+        // Check if word is completed
+        if (currentPosition === currentQuestion.question.length - 1) {
+          // Play sound only when completing a question
+          if (shotSoundRef.current && isSoundEnabled) {
             shotSoundRef.current.currentTime = 0;
             shotSoundRef.current.play();
           }
 
-          const { totalTime, score } = await addResult(userName, startTime);
-          setTotalTime(totalTime);
-          setScore(score);
-          setIsCompleted(true);
-
-          await fetchScores();
-        } else {
-          if (shotSoundRef.current) {
-            shotSoundRef.current.currentTime = 0;
-            shotSoundRef.current.play();
+          if (currentQuestionIndex === questions.length - 1) {
+            const { totalTime, score } = await addResult(userName, startTime);
+            setTotalTime(totalTime);
+            setScore(score);
+            setIsCompleted(true);
+            await fetchScores();
+          } else {
+            setCurrentQuestionIndex(prev => prev + 1);
+            setCurrentPosition(0);
           }
-          setCurrentQuestionIndex(prev => prev + 1);
-          setCurrentPosition(0);
         }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [
-    currentPosition, 
-    currentQuestionIndex, 
-    questions, 
-    userName, 
+    currentPosition,
+    currentQuestionIndex,
+    questions,
+    userName,
     startTime,
     shotSoundRef,
-    setCurrentPosition,
-    setCurrentQuestionIndex,
-    setIsCompleted,
+    isSoundEnabled,
+    addResult,
     setTotalTime,
     setScore,
-    setScores,
-    addResult,
-    fetchScores
+    setIsCompleted,
+    fetchScores,
   ]);
   
   const handleStartOver = () => {
