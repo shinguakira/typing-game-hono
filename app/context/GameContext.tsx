@@ -1,13 +1,13 @@
 'use client';
 import React, { createContext, useState, useContext, useRef, useEffect, ReactNode } from 'react';
-import { techQuestions, tailwindQuestions, materialQuestions, shadcnQuestions } from '../../constants/page';
+import { techQuestions, tailwindQuestions, materialQuestions, shadcnQuestions, monsterQuestions } from '../../constants/page';
 
 type Score = {
   userName: string;
   score: number;
 };
 
-export type GameMode = 'tech' | 'tailwind' | 'material' | 'shadcn';
+export type GameMode = 'tech' | 'tailwind' | 'material' | 'shadcn' | 'monster';
 
 interface GameContextProps {
   userName: string;
@@ -20,7 +20,7 @@ interface GameContextProps {
   currentPosition: number;
   setCurrentPosition: React.Dispatch<React.SetStateAction<number>>;
   isStarted: boolean;
-  setIsStarted: (isStarted: boolean) => void;
+  startGame: () => void;
   isCompleted: boolean;
   setIsCompleted: (isCompleted: boolean) => void;
   startTime: number;
@@ -36,6 +36,12 @@ interface GameContextProps {
   addResult: (userName: string, startTime: number) => Promise<{ totalTime: number; score: number }>;
   fetchScores: () => Promise<void>;
   resetGame: () => void;
+  isBgmEnabled: boolean;
+  setIsBgmEnabled: (enabled: boolean) => void;
+  isSoundEnabled: boolean;
+  setIsSoundEnabled: (enabled: boolean) => void;
+  selectedSound: string;
+  setSelectedSound: (sound: string) => void;
 }
 
 const GameContext = createContext<GameContextProps | null>(null);
@@ -56,6 +62,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [totalTime, setTotalTime] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
   const [scores, setScores] = useState<Score[]>([]);
+  const [isBgmEnabled, setIsBgmEnabled] = useState<boolean>(true);
+  const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
+  const [selectedSound, setSelectedSound] = useState<string>('shot.mp3');
   
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   const shotSoundRef = useRef<HTMLAudioElement | null>(null);
@@ -63,18 +72,30 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     bgmRef.current = new Audio('./bgm.mp3');
     bgmRef.current.loop = true;
-    shotSoundRef.current = new Audio('./shot.mp3');
-  }, []);
+    shotSoundRef.current = new Audio(`./sound/${selectedSound}`);
+  }, [selectedSound]);
 
   useEffect(() => {
-    if (isStarted && bgmRef.current) {
+    if (isStarted && bgmRef.current && isBgmEnabled) {
       bgmRef.current.play();
     }
-    if (isCompleted && bgmRef.current) {
+    if ((isCompleted || !isBgmEnabled) && bgmRef.current) {
       bgmRef.current.pause();
     }
-  }, [isStarted, isCompleted]);
-  
+  }, [isStarted, isCompleted, isBgmEnabled]);
+
+  useEffect(() => {
+    if (bgmRef.current) {
+      bgmRef.current.volume = isBgmEnabled ? 1 : 0;
+    }
+  }, [isBgmEnabled]);
+
+  useEffect(() => {
+    if (shotSoundRef.current) {
+      shotSoundRef.current.volume = isSoundEnabled ? 1 : 0;
+    }
+  }, [isSoundEnabled]);
+
   useEffect(() => {
     let questionSet;
     switch (gameMode) {
@@ -90,12 +111,22 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       case 'shadcn':
         questionSet = shadcnQuestions;
         break;
+      case 'monster':
+        questionSet = monsterQuestions;
+        break;
       default:
         questionSet = techQuestions;
     }
     const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
     setQuestions(shuffled.slice(0, 5));
   }, [gameMode]);
+
+  const startGame = () => {
+    if (userName.trim()) {
+      setIsStarted(true);
+      setStartTime(Date.now());
+    }
+  };
 
   async function addResult(userName: string, startTime: number) {
     const endTime = Date.now();
@@ -140,11 +171,14 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       case 'shadcn':
         questionSet = shadcnQuestions;
         break;
+      case 'monster':
+        questionSet = monsterQuestions;
+        break;
       default:
         questionSet = techQuestions;
     }
     const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
-    setQuestions(shuffled.slice(0, 5));
+    setQuestions(shuffled.slice(0, 10));
     setIsStarted(false);
     setIsCompleted(false);
     setCurrentQuestionIndex(0);
@@ -167,7 +201,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         currentPosition,
         setCurrentPosition,
         isStarted,
-        setIsStarted,
+        startGame,
         isCompleted,
         setIsCompleted,
         startTime,
@@ -183,6 +217,12 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         addResult,
         fetchScores,
         resetGame,
+        isBgmEnabled,
+        setIsBgmEnabled,
+        isSoundEnabled,
+        setIsSoundEnabled,
+        selectedSound,
+        setSelectedSound,
       }}
     >
       {children}

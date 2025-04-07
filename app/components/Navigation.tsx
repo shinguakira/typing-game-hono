@@ -2,17 +2,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Settings } from './Settings';
 
 export const Navigation = () => {
   const pathname = usePathname();
-  
+
   return (
     <nav className="bg-black text-white p-4 border-b border-red-800">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold text-red-600">
           Typing Game
         </Link>
-        <div className="flex space-x-4">
+        <div className="flex items-center space-x-4">
           <Link 
             href="/" 
             className={`px-3 py-2 rounded transition-colors ${
@@ -29,6 +30,7 @@ export const Navigation = () => {
           >
             Contact
           </Link>
+          <Settings />
         </div>
       </div>
     </nav>

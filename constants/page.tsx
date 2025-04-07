@@ -201,4 +201,35 @@ export const shadcnQuestions = [
   { question: 'Tooltip', image: './shadcn-real/tooltip.png' },
 ];
 
+/**
+ * questions for typing game - monster slayer mode
+ */
+export const monsterQuestions = [
+  { question: 'Dragon', image: './monster-slayer/dragon.png' },
+  { question: 'Goblin', image: './monster2.jpg' },
+  { question: 'Orc', image: './monster3.jpg' },
+  { question: 'Troll', image: './monster4.jpg' },
+  { question: 'Demon', image: './monster5.jpg' },
+  { question: 'Slime', image: './monster-slayer/Slime.png' },
+  { question: 'Zombie', image: './monster2.jpg' },
+  { question: 'Vampire', image: './monster3.jpg' },
+  { question: 'Werewolf', image: './monster4.jpg' },
+  { question: 'Ghost', image: './monster-slayer/ashwalker.png' },
+  { question: 'Ashwalker', image: './monster-slayer/ashwalker.png' },
+  { question: 'Wizard', image: './monster2.jpg' },
+  { question: 'Necromancer', image: './monster3.jpg' },
+  { question: 'Banshee', image: './monster4.jpg' },
+  { question: 'Chimera', image: './monster5.jpg' },
+  { question: 'Veilborn', image: './monster-slayer/veilborn.png' },
+  { question: 'Phoenix', image: './monster2.jpg' },
+  { question: 'Griffin', image: './monster3.jpg' },
+  { question: 'Minotaur', image: './monster4.jpg' },
+  { question: 'Cyclops', image: './monster5.jpg' },
+  { question: 'Whisper Ghoul', image: './monster-slayer/whisperGhouls.png' },
+  { question: 'Basilisk', image: './monster2.jpg' },
+  { question: 'Manticore', image: './monster3.jpg' },
+  { question: 'Cerberus', image: './monster4.jpg' },
+  { question: 'Medusa', image: './monster5.jpg' }
+];
+
 export const questions = techQuestions;

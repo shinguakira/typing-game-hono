@@ -45,7 +45,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 bg-black">
+    <div className="mx-auto px-4 py-16 bg-black flex min-h-screen flex-col items-center justify-center">
       <h2 className="text-3xl font-bold mb-8 text-center text-white">
         Contact Us
       </h2>
