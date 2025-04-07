@@ -17,13 +17,13 @@ const SOUND_OPTIONS = [
 
 export const Settings = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { 
-    isBgmEnabled, 
-    setIsBgmEnabled, 
-    isSoundEnabled, 
+  const {
+    isBgmEnabled,
+    setIsBgmEnabled,
+    isSoundEnabled,
     setIsSoundEnabled,
     selectedSound,
-    setSelectedSound
+    setSelectedSound,
   } = useGameContext();
 
   const handleSoundChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -89,7 +89,7 @@ export const Settings = () => {
                 </svg>
               </button>
             </div>
-            
+
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">

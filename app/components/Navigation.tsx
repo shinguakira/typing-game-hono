@@ -14,16 +14,16 @@ export const Navigation = () => {
           Typing Game
         </Link>
         <div className="flex items-center space-x-4">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className={`px-3 py-2 rounded transition-colors ${
               pathname === '/' ? 'bg-red-900 text-white' : 'hover:bg-gray-800'
             }`}
           >
             Home
           </Link>
-          <Link 
-            href="/contact" 
+          <Link
+            href="/contact"
             className={`px-3 py-2 rounded transition-colors ${
               pathname === '/contact' ? 'bg-red-900 text-white' : 'hover:bg-gray-800'
             }`}

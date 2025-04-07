@@ -17,16 +17,19 @@ A fun typing game built with Next.js, Hono, and Upstash Redis for the leaderboar
 ## Tech Stack
 
 - **Frontend:**
+
   - ⚡ Next.js 15
   - ⚛️ React
   - 📘 TypeScript
   - 🎨 Tailwind CSS
 
 - **Backend:**
+
   - 🚀 Hono (API Routes)
   - 🗄️ Upstash Redis (Leaderboard)
 
 - **Development:**
+
   - 🏃 Bun (Runtime & Package Manager)
   - 🔧 ESLint
   - ▲ Vercel (Deployment)
@@ -40,18 +43,21 @@ A fun typing game built with Next.js, Hono, and Upstash Redis for the leaderboar
 
 1. Clone the repository
 2. Install dependencies:
+
    ```bash
    bun install
    ```
 
 3. Set up environment variables:
    Create a `.env` file with:
+
    ```
    UPSTASH_REDIS_REST_URL=your_redis_url
    UPSTASH_REDIS_REST_TOKEN=your_redis_token
    ```
 
 4. Run the development server:
+
    ```bash
    bun run dev
    ```
