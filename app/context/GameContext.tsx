@@ -74,6 +74,12 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       bgmRef.current.pause();
     }
   }, [isStarted, isCompleted]);
+  
+  useEffect(() => {
+    const questionSet = gameMode === 'tech' ? techQuestions : tailwindQuestions;
+    const shuffled = [...questionSet].sort(() => 0.5 - Math.random());
+    setQuestions(shuffled.slice(0, 5));
+  }, [gameMode]);
 
   async function addResult(userName: string, startTime: number) {
     const endTime = Date.now();
