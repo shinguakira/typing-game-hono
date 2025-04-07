@@ -39,16 +39,43 @@ export async function generateMetadata(): Promise<Metadata> {
     description: dict.description,
     keywords: dict.keywords,
     authors: [{ name: 'Akira Shingu' }],
+    metadataBase: new URL('https://typing-game-hono.vercel.app'),
     openGraph: {
+      type: 'website',
+      locale: locale,
+      url: 'https://typing-game-hono.vercel.app',
+      siteName: dict.title,
       title: dict.title,
       description: dict.description,
-      images: ['/monster1.jpg'],
+      images: [
+        {
+          url: '/monster-slayer/dragon.png',
+          width: 1200,
+          height: 630,
+          alt: 'Dragon from Monster Slayer Typing Game'
+        },
+        {
+          url: '/monster-slayer/Slime.png',
+          width: 1200,
+          height: 630,
+          alt: 'Slime from Monster Slayer Typing Game'
+        }
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: dict.title,
       description: dict.description,
-      images: ['/monster1.jpg'],
+      site: '@AkiraShingu',
+      creator: '@AkiraShingu',
+      images: [
+        {
+          url: '/monster-slayer/dragon.png',
+          width: 1200,
+          height: 630,
+          alt: 'Dragon from Monster Slayer Typing Game'
+        }
+      ],
     },
     alternates: {
       languages: Object.fromEntries(
