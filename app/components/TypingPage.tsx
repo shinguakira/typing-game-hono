@@ -18,6 +18,7 @@ export const TypingPage = () => {
     setScores,
     addResult,
     fetchScores,
+    resetGame,
   } = useGameContext();
 
   useEffect(() => {
@@ -67,17 +68,29 @@ export const TypingPage = () => {
     addResult,
     fetchScores
   ]);
+  
+  const handleStartOver = () => {
+    resetGame();
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <div
-        className="text-center w-full h-screen bg-cover bg-center flex flex-col items-center justify-center"
+        className="text-center w-full h-screen bg-cover bg-center flex flex-col items-center justify-center relative"
         style={{
           backgroundImage: `url(${questions[currentQuestionIndex].image})`,
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
           backgroundBlendMode: 'overlay',
         }}
       >
+        <div className="absolute top-4 left-4">
+          <button 
+            className="px-4 py-2 bg-red-900 text-white rounded hover:bg-red-800 transition-colors"
+            onClick={handleStartOver}
+          >
+            Start from beginning
+          </button>
+        </div>
         <div className="text-white mb-8 text-xl">
           問題 {currentQuestionIndex + 1} / {questions.length}
         </div>

@@ -1,9 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameContext } from '../context/GameContext';
 
 export const ResultPage = () => {
   const { userName, totalTime, score, scores, resetGame } = useGameContext();
+  const [isScoreRegistered, setIsScoreRegistered] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(true);
 
   /**
    * Handle Play Again
@@ -12,9 +14,49 @@ export const ResultPage = () => {
   const handlePlayAgain = () => {
     resetGame();
   };
+  
+  /**
+   * Handle Score Registration
+   */
+  const handleRegisterScore = async () => {
+    setIsScoreRegistered(true);
+    setShowConfirmation(false);
+  };
+  
+  /**
+   * Handle Skip Registration
+   */
+  const handleSkipRegistration = () => {
+    setShowConfirmation(false);
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="bg-gray-900 p-8 rounded-lg border border-red-800 shadow-2xl max-w-md w-full">
+            <h3 className="text-2xl font-bold mb-4 text-red-600">Register Score?</h3>
+            <p className="mb-6 text-white">
+              Do you want to register your score of <span className="text-red-500">{score}</span> to the leaderboard?
+            </p>
+            <div className="flex justify-center gap-4">
+              <button 
+                className="px-6 py-2 bg-red-900 hover:bg-red-800 rounded transition-colors"
+                onClick={handleRegisterScore}
+              >
+                Yes, Register
+              </button>
+              <button 
+                className="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors"
+                onClick={handleSkipRegistration}
+              >
+                No, Skip
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="text-center p-8 bg-black/50 rounded-lg border border-red-800 shadow-2xl max-w-2xl w-full">
         <h2
           className="text-4xl font-bold mb-6 text-red-600"
@@ -32,6 +74,11 @@ export const ResultPage = () => {
           <p className="text-xl">
             Score: <span className="text-red-500">{score}</span>
           </p>
+          {isScoreRegistered && (
+            <p className="text-green-500 mt-2">
+              ✓ Score registered to leaderboard
+            </p>
+          )}
         </div>
 
         <div className="mt-8">
@@ -60,13 +107,13 @@ export const ResultPage = () => {
           )}
         </div>
         <div className="flex justify-center gap-4 mt-8">
-          <button className="px-8 py-3 text-xl bg-red-900" onClick={handlePlayAgain}>
+          <button 
+            className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors" 
+            onClick={handlePlayAgain}
+          >
             Play Again
           </button>
         </div>
-        {/* 
-        TODO: Add Play Again with the same name
-        */}
       </div>
     </main>
   );
