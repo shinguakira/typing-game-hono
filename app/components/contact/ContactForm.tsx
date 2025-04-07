@@ -57,7 +57,7 @@ export const ContactForm = () => {
               Message Sent!
             </h3>
             <p className="mb-6 text-gray-300">
-              Thank you for your message. We'll get back to you as soon as possible.
+              Thank you for your message. We&apos;ll get back to you as soon as possible.
             </p>
             <button
               onClick={() => setSubmitted(false)}

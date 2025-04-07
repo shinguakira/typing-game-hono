@@ -16,7 +16,7 @@ const transporterConfig = {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    let { name, email, message } = body;
+    const { name, email, message } = body;
     
     if (!process.env.EMAIL_PASSWORD || !process.env.EMAIL_USER) {
       return NextResponse.json(
