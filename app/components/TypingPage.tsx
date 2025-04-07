@@ -15,7 +15,6 @@ export const TypingPage = () => {
     shotSoundRef,
     setTotalTime,
     setScore,
-    setScores,
     addResult,
     fetchScores,
     resetGame,
