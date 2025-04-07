@@ -5,6 +5,7 @@ import { StartPage } from './components/StartPage';
 import { TypingPage } from './components/TypingPage';
 import { ResultPage } from './components/ResultPage';
 import { useGameContext } from './context/GameContext';
+import Navigation from './components/Navigation';
 
 function GameContent() {
   const { isStarted, isCompleted } = useGameContext();
@@ -17,6 +18,7 @@ function GameContent() {
 export default function Home() {
   return (
     <GameProvider>
+      <Navigation />
       <GameContent />
     </GameProvider>
   );
