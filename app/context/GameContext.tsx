@@ -1,6 +1,12 @@
 'use client';
 import React, { createContext, useState, useContext, useRef, useEffect, ReactNode } from 'react';
-import { techQuestions, tailwindQuestions, materialQuestions, shadcnQuestions, monsterQuestions } from '../../constants/page';
+import {
+  techQuestions,
+  tailwindQuestions,
+  materialQuestions,
+  shadcnQuestions,
+  monsterQuestions,
+} from '../../constants/page';
 
 type Score = {
   userName: string;
@@ -65,7 +71,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [isBgmEnabled, setIsBgmEnabled] = useState<boolean>(true);
   const [isSoundEnabled, setIsSoundEnabled] = useState<boolean>(true);
   const [selectedSound, setSelectedSound] = useState<string>('shot.mp3');
-  
+
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   const shotSoundRef = useRef<HTMLAudioElement | null>(null);
 

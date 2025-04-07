@@ -4,18 +4,18 @@ import { useGameContext, GameMode } from '../context/GameContext';
 import { Volume2, VolumeX, Sword, Zap, Bomb, Target } from 'lucide-react';
 
 export const StartPage = () => {
-  const { 
-    userName, 
-    setUserName, 
-    gameMode, 
-    setGameMode, 
+  const {
+    userName,
+    setUserName,
+    gameMode,
+    setGameMode,
     startGame,
     isSoundEnabled,
     setIsSoundEnabled,
     isBgmEnabled,
     setIsBgmEnabled,
     selectedSound,
-    setSelectedSound
+    setSelectedSound,
   } = useGameContext();
 
   const soundEffects = [
@@ -45,13 +45,15 @@ export const StartPage = () => {
   };
 
   return (
-    <main className={`flex min-h-screen flex-col items-center justify-center ${
-      gameMode === 'monster' 
-        ? 'bg-[url("/monster-slayer/dragon.png")] bg-cover bg-center bg-black bg-opacity-50 bg-blend-overlay'
-        : 'bg-black'
-    }`}>
+    <main
+      className={`flex min-h-screen flex-col items-center justify-center ${
+        gameMode === 'monster'
+          ? 'bg-[url("/monster-slayer/dragon.png")] bg-cover bg-center bg-black bg-opacity-50 bg-blend-overlay'
+          : 'bg-black'
+      }`}
+    >
       <h1 className="text-4xl font-bold text-white mb-8">Typing Game</h1>
-      
+
       <div className="text-center p-4 mb-6">
         <input
           type="text"
@@ -61,52 +63,52 @@ export const StartPage = () => {
           onChange={e => setUserName(e.target.value)}
         />
       </div>
-      
+
       <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <button 
+        <button
           className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'tech' 
-              ? 'bg-red-700 text-white' 
+            gameMode === 'tech'
+              ? 'bg-red-700 text-white'
               : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
           }`}
           onClick={() => handleModeChange('tech')}
         >
           Tech Terms
         </button>
-        <button 
+        <button
           className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'tailwind' 
-              ? 'bg-red-700 text-white' 
+            gameMode === 'tailwind'
+              ? 'bg-red-700 text-white'
               : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
           }`}
           onClick={() => handleModeChange('tailwind')}
         >
           Tailwind CSS
         </button>
-        <button 
+        <button
           className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'material' 
-              ? 'bg-red-700 text-white' 
+            gameMode === 'material'
+              ? 'bg-red-700 text-white'
               : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
           }`}
           onClick={() => handleModeChange('material')}
         >
           Material UI
         </button>
-        <button 
+        <button
           className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'shadcn' 
-              ? 'bg-red-700 text-white' 
+            gameMode === 'shadcn'
+              ? 'bg-red-700 text-white'
               : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
           }`}
           onClick={() => handleModeChange('shadcn')}
         >
           Shadcn UI
         </button>
-        <button 
+        <button
           className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'monster' 
-              ? 'bg-red-700 text-white' 
+            gameMode === 'monster'
+              ? 'bg-red-700 text-white'
               : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
           }`}
           onClick={() => handleModeChange('monster')}
@@ -114,28 +116,36 @@ export const StartPage = () => {
           Monster Slayer
         </button>
       </div>
-      
+
       <div className="flex flex-col items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setIsSoundEnabled(!isSoundEnabled)}
             className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
             title="Toggle Sound Effects"
           >
-            {isSoundEnabled ? <Volume2 className="w-6 h-6 text-white" /> : <VolumeX className="w-6 h-6 text-white" />}
+            {isSoundEnabled ? (
+              <Volume2 className="w-6 h-6 text-white" />
+            ) : (
+              <VolumeX className="w-6 h-6 text-white" />
+            )}
           </button>
-          <button 
+          <button
             onClick={() => setIsBgmEnabled(!isBgmEnabled)}
             className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
             title="Toggle Background Music"
           >
-            {isBgmEnabled ? <Volume2 className="w-6 h-6 text-white" /> : <VolumeX className="w-6 h-6 text-white" />}
+            {isBgmEnabled ? (
+              <Volume2 className="w-6 h-6 text-white" />
+            ) : (
+              <VolumeX className="w-6 h-6 text-white" />
+            )}
           </button>
         </div>
 
         {isSoundEnabled && (
           <div className="flex items-center gap-2">
-            {soundEffects.map((effect) => {
+            {soundEffects.map(effect => {
               const Icon = effect.icon;
               return (
                 <button
@@ -155,10 +165,10 @@ export const StartPage = () => {
           </div>
         )}
       </div>
-      
+
       <div>
-        <button 
-          className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded-lg transition-colors" 
+        <button
+          className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded-lg transition-colors"
           onClick={handleStart}
         >
           Start Game

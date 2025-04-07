@@ -229,7 +229,7 @@ export const monsterQuestions = [
   { question: 'Basilisk', image: './monster2.jpg' },
   { question: 'Manticore', image: './monster3.jpg' },
   { question: 'Cerberus', image: './monster4.jpg' },
-  { question: 'Medusa', image: './monster5.jpg' }
+  { question: 'Medusa', image: './monster5.jpg' },
 ];
 
 export const questions = techQuestions;

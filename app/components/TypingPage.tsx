@@ -69,7 +69,7 @@ export const TypingPage = () => {
     setIsCompleted,
     fetchScores,
   ]);
-  
+
   const handleStartOver = () => {
     resetGame();
   };
@@ -85,7 +85,7 @@ export const TypingPage = () => {
         }}
       >
         <div className="absolute top-4 left-4">
-          <button 
+          <button
             className="px-4 py-2 bg-red-900 text-white rounded hover:bg-red-800 transition-colors"
             onClick={handleStartOver}
           >

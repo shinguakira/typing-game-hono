@@ -14,7 +14,7 @@ export const ResultPage = () => {
   const handlePlayAgain = () => {
     resetGame();
   };
-  
+
   /**
    * Handle Score Registration
    */
@@ -22,7 +22,7 @@ export const ResultPage = () => {
     setIsScoreRegistered(true);
     setShowConfirmation(false);
   };
-  
+
   /**
    * Handle Skip Registration
    */
@@ -37,16 +37,17 @@ export const ResultPage = () => {
           <div className="bg-gray-900 p-8 rounded-lg border border-red-800 shadow-2xl max-w-md w-full">
             <h3 className="text-2xl font-bold mb-4 text-red-600">Register Score?</h3>
             <p className="mb-6 text-white">
-              Do you want to register your score of <span className="text-red-500">{score}</span> to the leaderboard?
+              Do you want to register your score of <span className="text-red-500">{score}</span> to
+              the leaderboard?
             </p>
             <div className="flex justify-center gap-4">
-              <button 
+              <button
                 className="px-6 py-2 bg-red-900 hover:bg-red-800 rounded transition-colors"
                 onClick={handleRegisterScore}
               >
                 Yes, Register
               </button>
-              <button 
+              <button
                 className="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors"
                 onClick={handleSkipRegistration}
               >
@@ -56,7 +57,7 @@ export const ResultPage = () => {
           </div>
         </div>
       )}
-      
+
       <div className="text-center p-8 bg-black/50 rounded-lg border border-red-800 shadow-2xl max-w-2xl w-full">
         <h2
           className="text-4xl font-bold mb-6 text-red-600"
@@ -75,9 +76,7 @@ export const ResultPage = () => {
             Score: <span className="text-red-500">{score}</span>
           </p>
           {isScoreRegistered && (
-            <p className="text-green-500 mt-2">
-              ✓ Score registered to leaderboard
-            </p>
+            <p className="text-green-500 mt-2">✓ Score registered to leaderboard</p>
           )}
         </div>
 
@@ -95,9 +94,7 @@ export const ResultPage = () => {
                   key={index}
                   className="flex justify-between items-center p-3 bg-black/30 border border-red-900/50 rounded"
                 >
-                  <span
-                    className={`text-lg ${score.userName === userName ? 'text-red-500' : ''}`}
-                  >
+                  <span className={`text-lg ${score.userName === userName ? 'text-red-500' : ''}`}>
                     {index + 1}.{score.userName}
                   </span>
                   <span className="text-red-500">{score.score}</span>
@@ -107,8 +104,8 @@ export const ResultPage = () => {
           )}
         </div>
         <div className="flex justify-center gap-4 mt-8">
-          <button 
-            className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors" 
+          <button
+            className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors"
             onClick={handlePlayAgain}
           >
             Play Again

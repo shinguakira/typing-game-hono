@@ -25,13 +25,13 @@ function getLocale(request: NextRequest): Locale {
 
 export function middleware(request: NextRequest) {
   const locale = getLocale(request);
-  
+
   const response = NextResponse.next();
-  
+
   if (!request.cookies.has('NEXT_LOCALE')) {
     response.cookies.set('NEXT_LOCALE', locale);
   }
-  
+
   return response;
 }
 

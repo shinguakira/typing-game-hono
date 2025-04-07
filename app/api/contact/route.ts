@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 const transporterConfig = {
   host: 'smtp.gmail.com',
@@ -10,25 +10,25 @@ const transporterConfig = {
     pass: process.env.EMAIL_PASSWORD,
   },
   debug: true,
-  logger: true
+  logger: true,
 };
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, message } = body;
-    
+
     if (!process.env.EMAIL_PASSWORD || !process.env.EMAIL_USER) {
       return NextResponse.json(
-        { error: "Failed to send message: Email configuration missing. Need to fix application." },
+        { error: 'Failed to send message: Email configuration missing. Need to fix application.' },
         { status: 500 }
       );
     }
-    
-    console.log("Message received:");
+
+    console.log('Message received:');
     console.log(`From: ${name} (${email})`);
     console.log(`Message: ${message}`);
-    
+
     let transporter;
     try {
       transporter = nodemailer.createTransport(transporterConfig);
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error('Failed to create email transport:', error);
       return NextResponse.json(
-        { error: "Failed to initialize email service. Please try again later." },
+        { error: 'Failed to initialize email service. Please try again later.' },
         { status: 500 }
       );
     }
@@ -48,10 +48,10 @@ export async function POST(request: Request) {
       .split('\n')
       .map((line: string) => `<div>${line}</div>`)
       .join('');
-    
+
     const mailOptions = {
       from: `"Typing Game Contact Form" <${process.env.EMAIL_USER}>`,
-      to: "shinguakira1022@gmail.com",
+      to: 'shinguakira1022@gmail.com',
       replyTo: email,
       subject: `New message from ${name} via Typing Game Contact Form`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -70,27 +70,27 @@ export async function POST(request: Request) {
         </div>
       `,
     };
-    
+
     try {
       console.log('Attempting to send email...');
       const info = await transporter.sendMail(mailOptions);
       console.log('Email sent successfully:', info);
-      
+
       return NextResponse.json({
         success: true,
-        messageId: info.messageId
+        messageId: info.messageId,
       });
     } catch (error) {
       console.error('Failed to send email:', error);
       return NextResponse.json(
-        { error: "Failed to send email. Please try again later." },
+        { error: 'Failed to send email. Please try again later.' },
         { status: 500 }
       );
     }
   } catch (error) {
-    console.error("Error details:", error instanceof Error ? error.toString() : "Unknown error");
+    console.error('Error details:', error instanceof Error ? error.toString() : 'Unknown error');
     return NextResponse.json(
-      { error: "Failed to send message: Need to fix application." },
+      { error: 'Failed to send message: Need to fix application.' },
       { status: 500 }
     );
   }
