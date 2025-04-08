@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useGameContext } from '../context/GameContext';
+import { Button } from '../components/ui/button';
 
 export const ResultPage = () => {
   const { userName, totalTime, score, scores, resetGame } = useGameContext();
@@ -41,18 +42,18 @@ export const ResultPage = () => {
               the leaderboard?
             </p>
             <div className="flex justify-center gap-4">
-              <button
-                className="px-6 py-2 bg-red-900 hover:bg-red-800 rounded transition-colors"
+              <Button
+                variant="game"
                 onClick={handleRegisterScore}
               >
                 Yes, Register
-              </button>
-              <button
-                className="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors"
+              </Button>
+              <Button
+                variant="secondary"
                 onClick={handleSkipRegistration}
               >
                 No, Skip
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -104,12 +105,13 @@ export const ResultPage = () => {
           )}
         </div>
         <div className="flex justify-center gap-4 mt-8">
-          <button
-            className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors"
+          <Button
+            variant="game"
+            size="lg"
             onClick={handlePlayAgain}
           >
             Play Again
-          </button>
+          </Button>
         </div>
       </div>
     </main>

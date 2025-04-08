@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useGameContext } from '../context/GameContext';
+import { Button } from '../components/ui/button';
 
 export const TypingPage = () => {
   const {
@@ -84,12 +85,12 @@ export const TypingPage = () => {
         }}
       >
         <div className="absolute top-4 left-4">
-          <button
-            className="px-4 py-2 bg-red-900 text-white rounded hover:bg-red-800 transition-colors"
+          <Button
+            variant="game"
             onClick={handleStartOver}
           >
             Start from beginning
-          </button>
+          </Button>
         </div>
         <div className="text-white mb-8 text-xl">
           問題 {currentQuestionIndex + 1} / {questions.length}

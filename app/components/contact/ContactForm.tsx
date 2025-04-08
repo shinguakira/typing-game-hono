@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { Button } from '../../components/ui/button';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
@@ -55,12 +56,12 @@ export const ContactForm = () => {
             <p className="mb-6 text-gray-300">
               Thank you for your message. We&apos;ll get back to you as soon as possible.
             </p>
-            <button
+            <Button
+              variant="game"
               onClick={() => setSubmitted(false)}
-              className="px-6 py-2 bg-red-900 hover:bg-red-800 text-white rounded transition-colors"
             >
               Send Another Message
-            </button>
+            </Button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -123,13 +124,14 @@ export const ContactForm = () => {
               </div>
             )}
 
-            <button
+            <Button
               type="submit"
+              variant="game"
               disabled={isSubmitting}
-              className="w-full px-8 py-3 bg-red-900 hover:bg-red-800 text-white rounded transition-colors disabled:opacity-50"
+              className="w-full"
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
-            </button>
+            </Button>
           </form>
         )}
       </div>

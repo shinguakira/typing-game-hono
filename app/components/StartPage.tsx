@@ -2,6 +2,7 @@
 import React from 'react';
 import { useGameContext, GameMode } from '../context/GameContext';
 import { Volume2, VolumeX, Sword, Zap, Bomb, Target } from 'lucide-react';
+import { Button } from '../components/ui/button';
 
 export const StartPage = () => {
   const {
@@ -65,82 +66,69 @@ export const StartPage = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <button
-          className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'tech'
-              ? 'bg-red-700 text-white'
-              : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-          }`}
+        <Button
+          variant={gameMode === 'tech' ? 'game' : 'secondary'}
+          size="lg"
           onClick={() => handleModeChange('tech')}
         >
           Tech Terms
-        </button>
-        <button
-          className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'tailwind'
-              ? 'bg-red-700 text-white'
-              : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-          }`}
+        </Button>
+        <Button
+          variant={gameMode === 'tailwind' ? 'game' : 'secondary'}
+          size="lg"
           onClick={() => handleModeChange('tailwind')}
         >
           Tailwind CSS
-        </button>
-        <button
-          className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'material'
-              ? 'bg-red-700 text-white'
-              : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-          }`}
+        </Button>
+        <Button
+          variant={gameMode === 'material' ? 'game' : 'secondary'}
+          size="lg"
           onClick={() => handleModeChange('material')}
         >
           Material UI
-        </button>
-        <button
-          className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'shadcn'
-              ? 'bg-red-700 text-white'
-              : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-          }`}
+        </Button>
+        <Button
+          variant={gameMode === 'shadcn' ? 'game' : 'secondary'}
+          size="lg"
           onClick={() => handleModeChange('shadcn')}
         >
           Shadcn UI
-        </button>
-        <button
-          className={`px-6 py-3 text-lg rounded-lg transition-colors ${
-            gameMode === 'monster'
-              ? 'bg-red-700 text-white'
-              : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-          }`}
+        </Button>
+        <Button
+          variant={gameMode === 'monster' ? 'game' : 'secondary'}
+          size="lg"
           onClick={() => handleModeChange('monster')}
         >
           Monster Slayer
-        </button>
+        </Button>
       </div>
 
       <div className="flex flex-col items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
-          <button
+          <Button
+            variant="secondary"
+            size="icon"
             onClick={() => setIsSoundEnabled(!isSoundEnabled)}
-            className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
             title="Toggle Sound Effects"
           >
             {isSoundEnabled ? (
-              <Volume2 className="w-6 h-6 text-white" />
+              <Volume2 className="w-6 h-6" />
             ) : (
-              <VolumeX className="w-6 h-6 text-white" />
+              <VolumeX className="w-6 h-6" />
             )}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
             onClick={() => setIsBgmEnabled(!isBgmEnabled)}
-            className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
             title="Toggle Background Music"
           >
             {isBgmEnabled ? (
-              <Volume2 className="w-6 h-6 text-white" />
+              <Volume2 className="w-6 h-6" />
             ) : (
-              <VolumeX className="w-6 h-6 text-white" />
+              <VolumeX className="w-6 h-6" />
             )}
-          </button>
+          </Button>
         </div>
 
         {isSoundEnabled && (
@@ -148,18 +136,15 @@ export const StartPage = () => {
             {soundEffects.map(effect => {
               const Icon = effect.icon;
               return (
-                <button
+                <Button
                   key={effect.name}
+                  variant={selectedSound === effect.name ? 'game' : 'secondary'}
+                  size="icon"
                   onClick={() => setSelectedSound(effect.name)}
-                  className={`p-2 rounded-lg transition-colors ${
-                    selectedSound === effect.name
-                      ? 'bg-red-700 text-white'
-                      : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
-                  }`}
                   title={`Select ${effect.label} Sound`}
                 >
                   <Icon className="w-5 h-5" />
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -167,12 +152,13 @@ export const StartPage = () => {
       </div>
 
       <div>
-        <button
-          className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded-lg transition-colors"
+        <Button
+          variant="game"
+          size="lg"
           onClick={handleStart}
         >
           Start Game
-        </button>
+        </Button>
       </div>
     </main>
   );
