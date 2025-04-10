@@ -8,7 +8,7 @@ export const Navigation = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-black text-white p-4 border-b border-red-800">
+    <nav className={`bg-black text-white p-4 border-b border-red-800 ${'sticky top-0'}`}>
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold text-red-600">
           Typing Game
