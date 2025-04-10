@@ -164,6 +164,9 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
   const resetGame = () => {
     let questionSet;
+    if(bgmRef.current){
+      bgmRef.current.pause();
+    }
     switch (gameMode) {
       case 'tech':
         questionSet = techQuestions;
