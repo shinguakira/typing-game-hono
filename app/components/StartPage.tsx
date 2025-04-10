@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGameContext, GameMode } from '../context/GameContext';
 import { Volume2, VolumeX, Sword, Zap, Bomb, Target } from 'lucide-react';
 
@@ -24,6 +24,16 @@ export const StartPage = () => {
     { name: 'thunder_spell.mp3', icon: Zap, label: 'Thunder' },
     { name: 'light_punch.mp3', icon: Bomb, label: 'Light Punch' },
   ];
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if(e.key === "Enter"){
+      handleStart();
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  },[userName])
 
   /**
    * Handle Start Game
@@ -168,9 +178,18 @@ export const StartPage = () => {
 
       <div>
         <button
-          className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded-lg transition-colors"
+          className="flex items-center px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded-lg transition-colors"
           onClick={handleStart}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleStart();
+            }
+          }}
+          title="Start Game"
         >
+          <kbd className="mr-4 rounded border border-gray-200  text-white px-1.5 py-0.5 text-sm">
+              Enter
+            </kbd>
           Start Game
         </button>
       </div>

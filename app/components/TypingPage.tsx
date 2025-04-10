@@ -27,6 +27,11 @@ export const TypingPage = () => {
       const expectedChar = currentQuestion.question[currentPosition].toLowerCase();
       const inputChar = e.key.toLowerCase();
 
+      if (e.key === 'Escape') {
+        handleStartOver();
+        return;
+      }
+
       if (inputChar === expectedChar) {
         setCurrentPosition(prev => prev + 1);
 
