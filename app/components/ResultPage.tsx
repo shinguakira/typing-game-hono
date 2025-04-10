@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameContext } from '../context/GameContext';
 
 export const ResultPage = () => {
@@ -14,6 +14,16 @@ export const ResultPage = () => {
   const handlePlayAgain = () => {
     resetGame();
   };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.key === 'Enter') {
+        handlePlayAgain();
+      }
+    };
+
+  useEffect(()=>{    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  },[handlePlayAgain])
 
   /**
    * Handle Score Registration
@@ -54,11 +64,33 @@ export const ResultPage = () => {
                 No, Skip
               </button>
             </div>
+            <div className="flex justify-center mt-4">
+              <button
+                className="flex items-center px-6 py-2 bg-red-900 hover:bg-red-800 rounded transition-colors"
+                onClick={handlePlayAgain}
+              >
+                <kbd className="mr-4 rounded border border-gray-200 px-1.5 py-0.5 text-sm">
+                  Enter
+                </kbd>
+                Play Again
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       <div className="text-center p-8 bg-black/50 rounded-lg border border-red-800 shadow-2xl max-w-2xl w-full">
+      <div className="flex justify-center gap-4 mb-8">
+          <button
+            className="flex items-center px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors"
+            onClick={handlePlayAgain}
+          >
+            <kbd className="mr-4 rounded border border-gray-200 px-1.5 py-0.5 text-sm">
+              Escape
+            </kbd>
+            Play Again
+          </button>
+        </div>
         <h2
           className="text-4xl font-bold mb-6 text-red-600"
           style={{ textShadow: '0 0 10px rgba(255, 0, 0, 0.7)' }}
@@ -102,14 +134,6 @@ export const ResultPage = () => {
               ))}
             </div>
           )}
-        </div>
-        <div className="flex justify-center gap-4 mt-8">
-          <button
-            className="px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors"
-            onClick={handlePlayAgain}
-          >
-            Play Again
-          </button>
         </div>
       </div>
     </main>

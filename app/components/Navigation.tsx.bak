@@ -3,8 +3,12 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Settings } from './Settings';
+import { useGameContext } from '../context/GameContext';
 
 export const Navigation = () => {
+  const {
+    isStarted,
+    } = useGameContext();
   const pathname = usePathname();
 
   return (
