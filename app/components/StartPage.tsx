@@ -24,6 +24,10 @@ export const StartPage = () => {
     { name: 'thunder_spell.mp3', icon: Zap, label: 'Thunder' },
     { name: 'light_punch.mp3', icon: Bomb, label: 'Light Punch' },
   ];
+  /**
+   * Start Game on Enter
+   * @param e 
+   */
   const handleKeyDown = (e: KeyboardEvent) => {
     if(e.key === "Enter"){
       handleStart();
