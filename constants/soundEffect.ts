@@ -1,0 +1,23 @@
+import { Volume2, VolumeX, Sword, Zap, Bomb, Target } from 'lucide-react';
+import { GiPistolGun, GiSawedOffShotgun, GiRayGun, GiRuneSword, GiIceCube, GiPoisonBottle, GiKatana, GiWhip, GiCrossedSwords, GiFist, GiHealthNormal, GiSubmarine } from "react-icons/gi";
+export const SOUND_OPTIONS = [
+    { value: 'shot.mp3', icon: GiPistolGun, label: 'Default Shot', option: false },
+    { value: 'fire_spell.mp3', icon: GiRuneSword, label: 'Fire Spell', option: false },
+    { value: 'ice_spell.mp3', icon: GiIceCube, label: 'Ice Spell', option: false },
+    { value: 'thunder_spell.mp3', icon: Zap, label: 'Thunder Spell', option: false },
+    { value: 'poison_spell.mp3', icon: GiPoisonBottle, label: 'Poison Spell', option: false },
+    { value: 'katana_slash.mp3', icon: GiKatana, label: 'Katana Slash', option: false },
+    { value: 'sword_slash1.mp3', icon: Sword, label: 'Sword Slash 1', option: false },
+    { value: 'sword_slash2.mp3', icon: Sword, label: 'Sword Slash 2', option: false },
+    { value: 'sword_slash3.mp3', icon: Sword, label: 'Sword Slash 3', option: false },
+    { value: 'whip_attack1.mp3', icon: GiWhip, label: 'Whip Attack 1', option: false },
+    { value: 'whip_attack2.mp3', icon: GiWhip, label: 'Whip Attack 2', option: false },
+    { value: 'light_punch.mp3', icon: GiFist, label: 'Light Punch', option: false },
+    { value: 'status_heal.mp3', icon: GiHealthNormal, label: 'Status Heal', option: false },
+    { value: 'sniper_shot.mp3', icon: GiCrossedSwords, label: 'Sniper Shot', option: false },
+    { value: 'shotgun_fire.mp3', icon: GiSawedOffShotgun, label: 'Shotgun', option: false },
+    { value: 'shotgun_pump_action.mp3', icon: GiSawedOffShotgun, label: 'Shotgun Pump', option: false },
+    { value: 'shotgun_shell_drop.mp3', icon: GiSawedOffShotgun, label: 'Shell Drop', option: false },
+    { value: 'submachine_gun_shot.mp3', icon: GiSubmarine, label: 'Submachine Gun', option: false },
+    { value: 'beamShot.mp3', icon: GiRayGun, label: 'Ray Gun', option: false }
+];
