@@ -1,19 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useGameContext } from '../context/GameContext';
-
-const SOUND_OPTIONS = [
-  { value: 'shot.mp3', label: 'Default Shot' },
-  { value: 'fire_spell.mp3', label: 'Fire Spell' },
-  { value: 'ice_spell.mp3', label: 'Ice Spell' },
-  { value: 'thunder_spell.mp3', label: 'Thunder Spell' },
-  { value: 'poison_spell.mp3', label: 'Poison Spell' },
-  { value: 'katana_slash.mp3', label: 'Katana Slash' },
-  { value: 'sword_slash1.mp3', label: 'Sword Slash' },
-  { value: 'whip_attack1.mp3', label: 'Whip Attack' },
-  { value: 'sniper_shot.mp3', label: 'Sniper Shot' },
-  { value: 'shotgun_fire.mp3', label: 'Shotgun' },
-];
+import { SOUND_OPTIONS } from '../../constants/soundEffect';
 
 export const Settings = () => {
   const [isOpen, setIsOpen] = useState(false);
