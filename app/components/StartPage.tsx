@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useGameContext, GameMode } from '../context/GameContext';
-import { Volume2, VolumeX, Sword, Zap, Bomb, Target } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { SOUND_OPTIONS } from '@/constants/soundEffect';
 import { Button } from '@/components/ui/button';
 
@@ -24,18 +24,18 @@ export const StartPage = () => {
 
   /**
    * Start Game on Enter
-   * @param e 
+   * @param e
    */
   const handleKeyDown = (e: KeyboardEvent) => {
-    if(e.key === "Enter"){
+    if (e.key === 'Enter') {
       handleStart();
     }
-  }
+  };
 
-  useEffect(()=>{
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  },[userName])
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [userName]);
 
   /**
    * Handle Start Game
@@ -52,17 +52,17 @@ export const StartPage = () => {
   /**
    * Handle Mode Change
    */
-function handleModeChange(mode: GameMode){
+  function handleModeChange(mode: GameMode) {
     setGameMode(mode);
-  };
-  
+  }
+
   /**
    * Handle Sound Change
-   * @param soundPath 
+   * @param soundPath
    */
   function handleSoundChange(soundPath: string) {
     soundEffectRef.current?.pause();
-    
+
     setSelectedSound(soundPath);
     const audio = new Audio(`./sound/${soundPath}`);
     if (isSoundEnabled) {
@@ -146,23 +146,23 @@ function handleModeChange(mode: GameMode){
 
       <div className="flex flex-col items-center gap-4 mb-8">
         <div className="flex items-center gap-4">
-        <div className="flex items-center space-x-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15.536 8.464a5 5 0 010 7.072M17.95 6.05a8 8 0 010 11.9M6.343 9.657L14 2l1.414 1.414a8 8 0 11-11.314 0L6.343 9.657z"
-                    />
-                  </svg>
-                  <label className="text-gray-300">Sound Effects ON/OFF</label>
-                </div>
+          <div className="flex items-center space-x-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-gray-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15.536 8.464a5 5 0 010 7.072M17.95 6.05a8 8 0 010 11.9M6.343 9.657L14 2l1.414 1.414a8 8 0 11-11.314 0L6.343 9.657z"
+              />
+            </svg>
+            <label className="text-gray-300">Sound Effects ON/OFF</label>
+          </div>
           <button
             onClick={() => setIsSoundEnabled(!isSoundEnabled)}
             className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
@@ -175,22 +175,22 @@ function handleModeChange(mode: GameMode){
             )}
           </button>
           <div className="flex items-center space-x-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-                    />
-                  </svg>
-                  <label className="text-gray-300">Background Music ON/OFF</label>
-                </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-gray-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+              />
+            </svg>
+            <label className="text-gray-300">Background Music ON/OFF</label>
+          </div>
           <button
             onClick={() => setIsBgmEnabled(!isBgmEnabled)}
             className="p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors"
@@ -230,7 +230,7 @@ function handleModeChange(mode: GameMode){
         <button
           className="flex items-center px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded-lg transition-colors"
           onClick={handleStart}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter') {
               handleStart();
             }
@@ -238,8 +238,8 @@ function handleModeChange(mode: GameMode){
           title="Start Game"
         >
           <kbd className="mr-4 rounded border border-gray-200  text-white px-1.5 py-0.5 text-sm">
-              Enter
-            </kbd>
+            Enter
+          </kbd>
           Start Game
         </button>
       </div>

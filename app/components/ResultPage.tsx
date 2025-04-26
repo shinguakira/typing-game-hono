@@ -15,15 +15,16 @@ export const ResultPage = () => {
     resetGame();
   };
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === 'Enter') {
-        handlePlayAgain();
-      }
-    };
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' || e.key === 'Enter') {
+      handlePlayAgain();
+    }
+  };
 
-  useEffect(()=>{    window.addEventListener('keydown', handleKeyDown);
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  },[handlePlayAgain])
+  }, [handlePlayAgain]);
 
   /**
    * Handle Score Registration
@@ -80,14 +81,12 @@ export const ResultPage = () => {
       )}
 
       <div className="text-center p-8 bg-black/50 rounded-lg border border-red-800 shadow-2xl max-w-2xl w-full">
-      <div className="flex justify-center gap-4 mb-8">
+        <div className="flex justify-center gap-4 mb-8">
           <button
             className="flex items-center px-8 py-3 text-xl bg-red-900 hover:bg-red-800 rounded transition-colors"
             onClick={handlePlayAgain}
           >
-            <kbd className="mr-4 rounded border border-gray-200 px-1.5 py-0.5 text-sm">
-              Escape
-            </kbd>
+            <kbd className="mr-4 rounded border border-gray-200 px-1.5 py-0.5 text-sm">Escape</kbd>
             Play Again
           </button>
         </div>

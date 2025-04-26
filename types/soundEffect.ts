@@ -1,5 +1,5 @@
 type SoundEffect = {
-    name: string;
-    icon: React.ReactNode;
-    lable: string;
-}
+  name: string;
+  icon: React.ReactNode;
+  lable: string;
+};

@@ -10,18 +10,20 @@ import Navigation from './components/Navigation';
 function GameContent() {
   const { isStarted, isCompleted } = useGameContext();
 
-  if (!isStarted) return (
-    <>
-    <Navigation />
-  <StartPage />
-  </>
-);
-  if (isCompleted) return (
-    <>
-    <Navigation />
-  <ResultPage />
-  </>
-);
+  if (!isStarted)
+    return (
+      <>
+        <Navigation />
+        <StartPage />
+      </>
+    );
+  if (isCompleted)
+    return (
+      <>
+        <Navigation />
+        <ResultPage />
+      </>
+    );
   return <TypingPage />;
 }
 
