@@ -4,6 +4,7 @@ import { useGameContext, GameMode } from '../context/GameContext';
 import { Volume2, VolumeX } from 'lucide-react';
 import { SOUND_OPTIONS } from '@/constants/soundEffect';
 import { Button } from '@/components/ui/button';
+import { env } from 'process';
 
 export const StartPage = () => {
   const {
@@ -86,7 +87,7 @@ export const StartPage = () => {
           type="text"
           placeholder="Enter your name..."
           className="w-64 p-3 text-lg bg-white text-gray-800 rounded"
-          value={userName}
+          value={userName || env.DEV_DEFAULT_USERNAME}
           onChange={e => setUserName(e.target.value)}
         />
       </div>

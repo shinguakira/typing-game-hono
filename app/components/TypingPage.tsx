@@ -11,6 +11,7 @@ export const TypingPage = () => {
     setCurrentPosition,
     setIsCompleted,
     userName,
+    gameMode,
     startTime,
     shotSoundRef,
     setTotalTime,
@@ -24,34 +25,42 @@ export const TypingPage = () => {
   useEffect(() => {
     const handleKeyDown = async (e: KeyboardEvent) => {
       const currentQuestion = questions[currentQuestionIndex];
-      const expectedChar = currentQuestion.question[currentPosition].toLowerCase();
-      const inputChar = e.key.toLowerCase();
+
+      if (!currentQuestion) return;
 
       if (e.key === 'Escape') {
-        handleStartOver();
+        resetGame();
         return;
       }
 
-      if (inputChar === expectedChar) {
-        setCurrentPosition(prev => prev + 1);
+      if (e.key === 'Backspace') {
+        setCurrentPosition(prev => Math.max(0, prev - 1));
+        return;
+      }
 
-        // Check if word is completed
-        if (currentPosition === currentQuestion.question.length - 1) {
-          // Play sound only when completing a question
-          if (shotSoundRef.current && isSoundEnabled) {
-            shotSoundRef.current.currentTime = 0;
-            shotSoundRef.current.play();
-          }
+      if (currentPosition < currentQuestion.question.length) {
+        const expectedChar = currentQuestion.question[currentPosition].toLowerCase();
+        const inputChar = e.key.toLowerCase();
 
-          if (currentQuestionIndex === questions.length - 1) {
-            const { totalTime, score } = await addResult(userName, startTime);
-            setTotalTime(totalTime);
-            setScore(score);
-            setIsCompleted(true);
-            await fetchScores();
-          } else {
-            setCurrentQuestionIndex(prev => prev + 1);
-            setCurrentPosition(0);
+        if (inputChar === expectedChar && e.key.length === 1) {
+          setCurrentPosition(prev => prev + 1);
+
+          if (currentPosition + 1 === currentQuestion.question.length) {
+            if (shotSoundRef.current && isSoundEnabled) {
+              shotSoundRef.current.currentTime = 0;
+              shotSoundRef.current.play();
+            }
+
+            if (currentQuestionIndex === questions.length - 1) {
+              const { totalTime, score } = await addResult(userName, startTime);
+              setTotalTime(totalTime);
+              setScore(score);
+              setIsCompleted(true);
+              await fetchScores();
+            } else {
+              setCurrentQuestionIndex(prev => prev + 1);
+              setCurrentPosition(0);
+            }
           }
         }
       }
@@ -72,6 +81,9 @@ export const TypingPage = () => {
     setScore,
     setIsCompleted,
     fetchScores,
+    resetGame,
+    setCurrentPosition,
+    setCurrentQuestionIndex,
   ]);
 
   const handleStartOver = () => {
@@ -83,9 +95,10 @@ export const TypingPage = () => {
       <div
         className="text-center w-full h-screen bg-cover bg-center flex flex-col items-center justify-center relative"
         style={{
-          backgroundImage: `url(${questions[currentQuestionIndex].image})`,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          backgroundBlendMode: 'overlay',
+          backgroundImage:
+            gameMode === 'tailwind' ? 'none' : `url(${questions[currentQuestionIndex].image})`,
+          backgroundColor: gameMode === 'tailwind' ? 'black' : 'rgba(0, 0, 0, 0.7)',
+          backgroundBlendMode: gameMode === 'tailwind' ? 'normal' : 'overlay',
         }}
       >
         <div className="absolute top-4 left-4">
@@ -99,6 +112,22 @@ export const TypingPage = () => {
         <div className="text-white mb-8 text-xl">
           問題 {currentQuestionIndex + 1} / {questions.length}
         </div>
+        {gameMode === 'tailwind' && (
+          <div className="flex gap-4 mb-4">
+            <label>Before</label>
+            <div className="w-96 h-96 border border-dashed border-gray-500 bg-gray-800 flex items-center justify-center">
+              <div className={'w-full h-full'}>
+                <span className="text-white">Default</span>
+              </div>
+            </div>
+            <label>After</label>
+            <div className="w-96 h-96 border border-dashed border-gray-500 bg-gray-800 flex items-center justify-center">
+              <div className={`w-full h-full ${questions[currentQuestionIndex].question}`}>
+                <span className="text-white">Default</span>
+              </div>
+            </div>
+          </div>
+        )}
         <div
           style={{
             fontSize: '48px',

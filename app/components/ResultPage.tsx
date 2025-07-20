@@ -113,12 +113,7 @@ export const ResultPage = () => {
 
         <div className="mt-8">
           <h3 className="text-2xl font-bold mb-4 text-red-600">Ranking</h3>
-          {scores.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-8">
-              <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
-              <p className="mt-4 text-red-500 animate-pulse">Loading scores...</p>
-            </div>
-          ) : (
+          {scores?.length > 0 ? (
             <div className="space-y-4">
               {scores.map((score, index) => (
                 <div
@@ -131,6 +126,11 @@ export const ResultPage = () => {
                   <span className="text-red-500">{score.score}</span>
                 </div>
               ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-8">
+              <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+              <p className="mt-4 text-red-500 animate-pulse">Loading scores...</p>
             </div>
           )}
         </div>
