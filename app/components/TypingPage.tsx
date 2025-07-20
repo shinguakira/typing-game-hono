@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect } from 'react';
-import { useGameContext, GameMode } from '../context/GameContext';
+import { useGameContext } from '../context/GameContext';
 
 export const TypingPage = () => {
   const {
@@ -89,10 +89,6 @@ export const TypingPage = () => {
   const handleStartOver = () => {
     resetGame();
   };
-
-  const typedString =
-    questions[currentQuestionIndex] &&
-    questions[currentQuestionIndex].question.substring(0, currentPosition);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
