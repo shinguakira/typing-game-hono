@@ -1,12 +1,22 @@
+import { zValidator } from '@hono/zod-validator';
 import { Redis } from '@upstash/redis';
 import { Hono } from 'hono';
 import { env } from 'hono/adapter';
 import { handle } from 'hono/vercel';
+import { z } from 'zod';
 
 type EnvConfig = {
   UPSTASH_REDIS_REST_URL: string;
   UPSTASH_REDIS_REST_TOKEN: string;
 };
+
+// Validated request body for POST /api/result. zValidator also feeds the
+// typed input into the RPC client, so `client.api.result.$post` requires
+// exactly this shape at the call site.
+const resultSchema = z.object({
+  score: z.number(),
+  userName: z.string().min(1),
+});
 
 // Routes are chained into a single expression so `typeof app` carries every
 // route's input/output types — that is what the Hono RPC client infers from.
@@ -15,13 +25,11 @@ const app = new Hono()
   .get('/ping', c => {
     return c.text('pong');
   })
-  .post('/result', async c => {
+  .post('/result', zValidator('json', resultSchema), async c => {
     try {
-      const { score, userName } = await c.req.json();
-
-      if (!score || !userName) {
-        return c.json({ message: 'Invalid request' }, 400);
-      }
+      // Typed + already validated by zValidator; invalid bodies get a 400
+      // before this handler runs.
+      const { score, userName } = c.req.valid('json');
 
       const { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = env<EnvConfig>(c);
 
