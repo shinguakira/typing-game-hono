@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { client } from '@/lib/hono-client';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -15,16 +16,12 @@ const ContactForm = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const response = await client.api.contact.$post({
+        json: {
           name,
           email,
           message,
-        }),
+        },
       });
 
       if (response.ok) {
@@ -34,7 +31,11 @@ const ContactForm = () => {
         setMessage('');
       } else {
         const errorData = await response.json();
-        setError(errorData.error || 'Something went wrong. Please try again.');
+        const errorMessage =
+          'error' in errorData && typeof errorData.error === 'string'
+            ? errorData.error
+            : 'Something went wrong. Please try again.';
+        setError(errorMessage);
       }
     } catch (err) {
       setError('Failed to submit the form. Please try again.');
