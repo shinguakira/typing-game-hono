@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 
-export const ContactForm = () => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');

@@ -231,5 +231,3 @@ export const monsterQuestions = [
   { question: 'Cerberus', image: './monster4.jpg' },
   { question: 'Medusa', image: './monster5.jpg' },
 ];
-
-export const questions = techQuestions;
