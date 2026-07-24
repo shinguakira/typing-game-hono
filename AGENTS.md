@@ -18,18 +18,18 @@ sends mail via Nodemailer. Deployed on Vercel.
 
 Use **bun** for everything. Do not introduce npm/yarn/pnpm lockfiles.
 
-| Task | Command |
-| --- | --- |
-| Dev server | `bun run dev` |
-| Production build (type-checks first) | `bun run build` |
-| Type check | `bun run typecheck` |
-| Tests | `bun test` |
-| Lint | `bun run oxlint` (fix: `bun run oxlint:fix`) |
-| Format | `bun run oxfmt` (check: `bun run oxfmt:check`) |
-| Dead-code / unused deps | `bun run knip` |
+| Task                                 | Command                                          |
+| ------------------------------------ | ------------------------------------------------ |
+| Dev server                           | `bun run dev`                                    |
+| Production build (type-checks first) | `bun run build`                                  |
+| Type check                           | `bun run typecheck`                              |
+| Tests                                | `bun test`                                       |
+| Lint                                 | `bun run lint` (fix: `bun run lint:fix`)         |
+| Format                               | `bun run format` (check: `bun run format:check`) |
+| Dead-code / unused deps              | `bun run knip`                                   |
 
 Before committing, a change should pass: `bun run typecheck`, `bun run build`,
-`bun test`, `bun run oxlint`, `bun run knip`.
+`bun test`, `bun run lint`, `bun run knip`.
 
 ## Architecture rules (important)
 
@@ -85,9 +85,9 @@ CSS imports need an ambient `*.css` declaration ([`types/css.d.ts`](types/css.d.
 
 ### 5. Lint / format / dead code
 
-- **oxlint** (`.oxlintrc.json`) is the linter, **oxfmt** (`.oxfmtrc.json`, migrated
-  from the old Prettier config) is the formatter. Prettier/ESLint still exist but
-  oxlint+oxfmt are preferred for new work.
+- **oxlint** (`.oxlintrc.json`) is the linter (`bun run lint`), **oxfmt**
+  (`.oxfmtrc.json`) is the formatter (`bun run format`). Prettier and ESLint have
+  been removed entirely — do not reintroduce them or their configs.
 - **knip** (`knip.json`) guards unused files/exports/deps. If knip flags a
   false positive (a dep used only implicitly), add it to `ignoreDependencies`
   rather than deleting the dep.
@@ -102,7 +102,7 @@ mail need mocked dependencies.
 ## Formatting conventions
 
 Single quotes, semicolons, 2-space indent, width 100, `trailingComma: es5`,
-`arrowParens: avoid`. Enforced by oxfmt — just run `bun run oxfmt`.
+`arrowParens: avoid`. Enforced by oxfmt — just run `bun run format`.
 
 ## Project layout
 
