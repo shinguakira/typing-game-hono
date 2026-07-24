@@ -1,5 +1,5 @@
 import { hc } from 'hono/client';
-import type { AppType } from '@/app/api/[[...route]]/route';
+import type { AppType } from '@/app/api/[[...route]]/app';
 
 // Typed RPC client for the Hono API that runs INSIDE this Next.js app
 // (served by app/api/[[...route]]/route.ts via hono/vercel `handle`) — it is
