@@ -1,12 +1,4 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignoreDependencies": [
-    "@next/swc-win32-x64-msvc",
-    "shadcn",
-    "@types/prettier",
-    "eslint",
-    "eslint-config-next",
-    "eslint-config-prettier",
-    "eslint-plugin-prettier"
-  ]
+  "ignoreDependencies": ["@next/swc-win32-x64-msvc", "shadcn"]
 }

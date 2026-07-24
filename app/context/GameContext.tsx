@@ -1,5 +1,6 @@
 'use client';
 import React, { createContext, useState, useContext, useRef, useEffect, ReactNode } from 'react';
+import type { InferResponseType } from 'hono/client';
 import {
   techQuestions,
   tailwindQuestions,
@@ -7,11 +8,11 @@ import {
   shadcnQuestions,
   monsterQuestions,
 } from '../../constants/page';
+import { client } from '@/lib/hono-client';
 
-type Score = {
-  userName: string;
-  score: number;
-};
+// Single source of truth: derive the score shape from the API's GET /result
+// success response instead of re-declaring it here.
+type Score = InferResponseType<typeof client.api.result.$get, 200>['results'][number];
 
 export type GameMode = 'tech' | 'tailwind' | 'material' | 'shadcn' | 'monster';
 
@@ -142,22 +143,19 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     const timeDeduction = Math.floor(timeInSeconds * 100);
     const score = Math.max(1000, baseScore - timeDeduction);
 
-    await fetch('/api/result', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    await client.api.result.$post({
+      json: {
         score: score,
         userName: userName,
-      }),
+      },
     });
 
     return { totalTime, score };
   }
 
   async function fetchScores() {
-    const res = await fetch('/api/result');
+    const res = await client.api.result.$get();
+    if (!res.ok) return;
     const data = await res.json();
     setScores(data.results);
   }
