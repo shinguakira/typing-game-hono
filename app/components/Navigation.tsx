@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Settings } from './Settings';
 
-export const Navigation = () => {
+const Navigation = () => {
   const pathname = usePathname();
 
   return (

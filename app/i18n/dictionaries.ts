@@ -36,8 +36,3 @@ export const dictionaries = {
 };
 
 export type Locale = keyof typeof dictionaries;
-export type Dictionary = typeof dictionaries.en;
-
-export function getDictionary(locale: Locale): Dictionary {
-  return dictionaries[locale];
-}
